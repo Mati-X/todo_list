@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+</head>
+<body>
+{% for todo in todo_list %}
+    <p>{{ todo.id }} | {{ todo.title }}</p>
+    <span>
+        {% if todo.is_done == True %}
+            <p>Done</p>
+        {% else %}
+            <p>Not Done</p>
+        {% endif %}
+    </span>
+    <p>{{ todo.date }}</p>
+{% endfor %}
+</body>
+</html>
