@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<main>
+    <form action="/add" method="post">
+        <input type="text" name="title" maxlength="50" placeholder="Todo title">
+        <input type="text" name="description" maxlength="100" placeholder="Todo Description">
+        <br>
+        <button type="submit">Add</button>
+    </form>
+    <div id="todo-container">
+        {% if todo_list %}
+            {% for todo in todo_list %}
+                <div class="todo-item">
+                    <p class="todo-title">{{ todo.id }} {{ todo.title }}</p>
+                    <div class="todo-info">
+                        <span>
+                        <p class="todo-desc">{{ todo.description }}</p>
+
+                        <p class="todo-date">{{ todo.date }}</p>
+                        </span>
+
+                        <span class="todo-buttons">
+                        {% if todo.is_done == True %}
+                            <a class="todo-done" href="/update/{{ todo.id }}">
+                            Done
+                        {% else %}
+                            <a class="todo-not-done" href="/update/{{ todo.id }}">
+                            Not Done
+                        {% endif %}
+                        </a>
+                        <a class="todo-delete" href="/delete/{{ todo.id }}">Delete</a>
+
+                        </span>
+                    </div>
+                </div>
+            {% endfor %}
+
+        {% else %}
+            <p>No todos yet</p>
+        {% endif %}
+    </div>
+    <footer>
+        Todo List<br>
+        By: <a href="https://github.com/Mati-X">Mateusz Matla</a>
+        <br>
+        <input type="range" min="0" max="180" id="color">
+    </footer>
+
+</main>
+<script>
+    const range = document.getElementById('color');
+    const main = document.querySelector('main');
+    range.addEventListener('input', () => {
+        main.style.filter = `hue-rotate(${range.value}deg)`;
+        range.style.filter = `hue-rotate(${range.value}deg)`;
+    })
+</script>
+</body>
+
+</html>
